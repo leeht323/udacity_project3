@@ -7,7 +7,7 @@
 
   <!-- AMCL Node -->
   <node name="amcl" pkg="amcl" type="amcl" output="screen">
-    <!--remap from="scan" to="amcl_project/laser/scan"/-->
+    <remap from="scan" to="/udacity_bot/laser/scan"/>
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff-corrected"/>
     <param name="base_frame_id" value="robot_footprint"/>
@@ -18,11 +18,21 @@
     <param name="initial_pose_x" value="0.038"/>
     <param name="initial_pose_y" value="1.917"/>
     <param name="initial_pose_a" value="1.573"/>
+    <param name="update_min_d" value="0.1"/>
+    <param name="update_min_a" value="0.174"/>
+    <param name="min_particles" value="100"/>
+    <param name="max_particles" value="3000"/>
+    <param name="resample_interval" value="2"/>
+    <param name="odom_alpha1" value="0.02"/>
+    <param name="odom_alpha2" value="0.02"/>
+    <param name="odom_alpha3" value="0.02"/>
+    <param name="odom_alpha4" value="0.02"/>
+
   </node>
 
   <!-- Move Base -->
   <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
-    <remap from="scan" to="amcl_project/laser/scan"/>
+    <remap from="scan" to="/udacity_bot/laser/scan"/>
     <param name="base_global_planner" value="navfn/NavfnROS" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
     <rosparam file="$(find amcl_project)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
